@@ -5,7 +5,7 @@ import BlogDetail from "./components/BlogDetail/BlogDetail";
 function App() {
   return (
     <div className="App">
-        <BlogDetail></BlogDetail>
+        <BlogDetail content={'리액트 블로그 시작합니다.'}></BlogDetail>
     </div>
   );
 }
