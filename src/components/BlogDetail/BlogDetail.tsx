@@ -7,7 +7,7 @@ export interface BlogDetailProps {
 function BlogDetail() {
     return (
         <div className="BlogDetail">
-            리액트 블로그 시작합니다.
+            '사이드바 만들어봤습니다!'
         </div>
     );
 }
