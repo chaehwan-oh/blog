@@ -1,8 +1,16 @@
 import React from 'react';
 import CSS from 'csstype';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 import BlogDetail from '../BlogDetail/BlogDetail';
+import {Menu} from "../../App";
 
 export interface SideNavProps {
+    menus: Menu[]
     children?: JSX.Element[] | JSX.Element
 }
 
@@ -31,38 +39,33 @@ const mainStyle = {
 };
 
 
-function SideNav() {
+function SideNav(props: SideNavProps) {
+    const publicUrl = process.env.PUBLIC_URL;
+
     return (
-        <div
-            className="SideNav"
-            style={sideNavStyle}
-        >
-            <a href="#"
-               style={linkStyle}
-            >
-                Profile
-            </a>
-            <a
-                href="#"
-                style={linkStyle}
-            >
-                Posts
-            </a>
-            <a
-                href="#"
-                style={linkStyle}
-            >
-                Contact
-            </a>
-            <div
-                className="main"
-                style={mainStyle}
-            >
-                <h2>블로그</h2>
-                <BlogDetail></BlogDetail>
-            </div>
-        </div>
-    );
+        <div className="SideNav" style={sideNavStyle}>
+            <Router>
+                <ul>
+                    {props.menus.map((menu: Menu, idx: number) => {
+                        return <li key={idx}><Link to={publicUrl + '/' + menu.path}>{menu.label}</Link> </li>
+                    })}
+                </ul>
+                <div className="main"
+                     style={mainStyle}>
+                    <Switch>
+                        {props.menus.map((route, index) => (
+                            <Route
+                                key={index}
+                                path={publicUrl + route.path}
+                                exact={route.exact}
+                                children={<route.component/>}
+                            />
+                        ))}
+                    </Switch>
+                    무야호..
+                </div>
+            </Router>
+        </div>);
 }
 
 export default SideNav;
